@@ -1,14 +1,15 @@
 require("dotenv").config();
-const keys = require("./keys.js");
-var Spotify = require('node-spotify-api');
-var spotify = new Spotify(keys.API_Spotify);
-var request = require("request");
-var moment = require("moment");
-var fs = require("fs");
+const keys = require("./keys.js"); //******** Gets the keys.js file ********//
+var Spotify = require('node-spotify-api'); //******** Gets the spotify package ********//
+var spotify = new Spotify(keys.API_Spotify); //******** Gets the spotify key from the key.js file ********//
+var request = require("request"); //******** Gets the rquest package ********//
+var moment = require("moment"); //******** Gets the moment package ********//
+var fs = require("fs"); //******** Gets the fs package ********//
 
-const command = process.argv[2];
-const argument = process.argv[3];
+const command = process.argv[2];  //******* the command that is been passed  ********//
+const argument = process.argv[3]; //******* the argument that is been passed ********//
 
+//************************* Switch statement for different commands **********************//
 switch(command){
     case "concert-this":
         concertThis(argument);
@@ -24,11 +25,12 @@ switch(command){
         break;
 }
 
+//************* do what is says functions *************//
 function doWhatItSays(){
     fs.readFile("random.txt","utf8",function(err,data){
         if(err) throw err;
         // console.log(data.split(","));
-        const randomData = data.split(",");
+        const randomData = data.split(","); //******** spilting the text at comma to create an array ********//
         // console.log(randomData[0]);
         if(randomData[0] === "spotify-this-song"){
             // console.log(randomData[1]);
@@ -43,6 +45,7 @@ function doWhatItSays(){
     })
 }
 
+//************** Concert function  ***************//
 function concertThis(argument){
     let url = "https://rest.bandsintown.com/artists/" + argument + "/events?app_id="+keys.API_CONCERT.ID
     // console.log(url);
@@ -55,6 +58,7 @@ function concertThis(argument){
     });
 }
 
+//************** Spotify function  ***************//
 function spotifyThis(argument){
     // console.log(argument);
     spotify.search({ type: 'track', query: argument }, function(err, data) {
@@ -70,6 +74,7 @@ function spotifyThis(argument){
     });
 }
 
+//************* Movie function **************//
 function movieThis(argument){
     // console.log(argument);
     // console.log(keys.API_OMDB.key);
