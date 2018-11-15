@@ -34,7 +34,12 @@ function doWhatItSays(){
             // console.log(randomData[1]);
             spotifyThis(randomData[1]);
         }
-
+        else if(randomData[0] === "movie-this"){
+            movieThis(randomData[1]);
+        }
+        else if(randomData[0] === "concert-this"){
+            concertThis(randomData[1]);
+        }
     })
 }
 
